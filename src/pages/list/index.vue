@@ -16,21 +16,21 @@
       </div>
       <div class="content">
         <scroll-view class="section" scroll-x>
-          <div class="myitem">
+          <div class="myitem" v-for="(item, index) in movieList" :key="index">
             <div class="item">
-              <img
-                src="https://img3.doubanio.com/view/photo/m_ratio_poster/public/p2561172733.jpg"
-                alt
-              />
+              <img :src="item.images.small" alt />
             </div>
-            <div class="moviename">扫毒2天地对决</div>
+            <div class="moviename">{{item.title}}</div>
             <div class="scope">
-              <span class="star1"></span>
-              <span class="star1"></span>
-              <span class="star1"></span>
-              <span class="star2"></span>
-              <span class="star2"></span>
-              <span class="word">6.0</span>
+              <div v-if="item.start !=0">
+                <span v-if="item.start >=1" class="star1"></span>
+                <span class="star1"></span>
+                <span class="star1"></span>
+                <span class="star2"></span>
+                <span class="star2"></span>
+                <span class="word">6.0</span>
+              </div>
+              <div v-else>暂无评分</div>
             </div>
           </div>
         </scroll-view>
