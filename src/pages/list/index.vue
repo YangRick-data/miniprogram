@@ -24,11 +24,16 @@
             <div class="scope">
               <div v-if="item.start !=0">
                 <span v-if="item.start >=1" class="star1"></span>
-                <span class="star1"></span>
-                <span class="star1"></span>
-                <span class="star2"></span>
-                <span class="star2"></span>
-                <span class="word">6.0</span>
+                <span v-else class="star2"></span>
+                <span v-if="item.start >=2" class="star1"></span>
+                <span v-else class="star2"></span>
+                <span v-if="item.start >=3" class="star1"></span>
+                <span v-else class="star2"></span>
+                <span v-if="item.start >=4" class="star1"></span>
+                <span v-else class="star2"></span>
+                <span v-if="item.start >=5" class="star1"></span>
+                <span v-else class="star2"></span>
+                <span class="word">{{item.rating.average}}</span>
               </div>
               <div v-else>暂无评分</div>
             </div>
@@ -163,12 +168,15 @@ export default {
             .star2 {
               background-image: url("../../utils/imgs/1.png");
             }
-            &:first-child {
-              margin-left: 36rpx;
+            .word {
+              width: 28px;
             }
-            &:last-child {
-              margin-right: 36rpx;
-            }
+          }
+          &:first-child {
+            margin-left: 36rpx;
+          }
+          &:last-child {
+            margin-right: 36rpx;
           }
         }
       }
