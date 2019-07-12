@@ -4,9 +4,9 @@ function wxrequest(options) {
   return new Promise((reslove, reject) => {
     wx.request({
       url: options.url,
-      methed: options.methed || "GET",
+      method: options.method || "GET",
       data: options.data || {},
-      header: opthions.header || {},
+      header: options.header || {},
       success: function(res) {
         reslove(res);
       },
@@ -16,5 +16,5 @@ function wxrequest(options) {
     });
   });
 }
-
+// 暴露
 export default wxrequest;

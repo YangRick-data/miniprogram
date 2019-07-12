@@ -53,18 +53,79 @@ export default {
       movieList: []
     };
   },
-  mounted() {
-    var wxpromise = wxrequest({
+  // async created() {
+  //   // ------------------------------ 3.0 使用 async 和 await 将异步写法同步
+  //   var res = await wxrequest({
+  //     url:
+  //       "https://autumnfish.cn/v2/movie/in_theaters?q=undefined&apikey=0df993c66c0c636e29ecbb5344252a4a",
+  //     method: "GET",
+  //     header: {
+  //       "content-type": "json"
+  //     }
+  //   });
+  //   // 解构
+  //   let { statusCode, data } = res;
+  //   // 判断
+  //   if (statusCode === 200) {
+  //     // 得到数据之前将星星数据计算出来
+  //     data.subjects.forEach(item => {
+  //       // 得到星星数
+  //       var startNum = Math.round(item.rating.average / 2);
+  //       item.start = startNum;
+  //       item.rating.average = item.rating.average.toFixed(1);
+  //     });
+  //     this.movieList = data.subjects;
+  //   }
+  //   console.log(this.movieList);
+  // },
+  async mounted() {
+    // ------------------------------ 3.0 使用 async 和 await 将异步写法同步
+    var res = await wxrequest({
       url:
         "https://autumnfish.cn/v2/movie/in_theaters?q=undefined&apikey=0df993c66c0c636e29ecbb5344252a4a",
-      methed: "get",
       header: {
         "content-type": "json"
       }
     });
-    wxpromise.then(res => {
-      console.log(res);
-    });
+    // console.log(res);
+    let { statusCode, data } = res;
+    // 判断
+    if (statusCode === 200) {
+      // 得到数据之前将星星数据计算出来
+      data.subjects.forEach(item => {
+        // 得到星星数
+        var startNum = Math.round(item.rating.average / 2);
+        item.start = startNum;
+        item.rating.average = item.rating.average.toFixed(1);
+      });
+      this.movieList = data.subjects;
+    }
+    console.log(this.movieList);
+
+    // ------------------------------ 2.0 将原生方法封装为 pormise
+    // var wxpromise = wxrequest({
+    //   url:
+    //     "https://autumnfish.cn/v2/movie/in_theaters?q=undefined&apikey=0df993c66c0c636e29ecbb5344252a4a",
+    //   header: {
+    //     "content-type": "json"
+    //   }
+    // });
+    // wxpromise.then(res => {
+    //   let { statusCode, data } = res;
+    //   // 判断
+    //   if (statusCode === 200) {
+    //     // 得到数据之前将星星数据计算出来
+    //     data.subjects.forEach(item => {
+    //       // 得到星星数
+    //       var startNum = Math.round(item.rating.average / 2);
+    //       item.start = startNum;
+    //       item.rating.average = item.rating.average.toFixed(1);
+    //     });
+    //     this.movieList = data.subjects;
+    //   }
+    //   console.log(this.movieList);
+    // });
+    // ------------------------------ 1.0 使用原生的 wx.reqest 方法请求
     // wx.request({
     //   url:
     //     "https://autumnfish.cn/v2/movie/in_theaters?q=undefined&apikey=0df993c66c0c636e29ecbb5344252a4a",
